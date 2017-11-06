@@ -1,0 +1,51 @@
+<% var head ={ %>
+<title>出库查询</title>
+<% }; var ctrls= "" ; var body={ %>
+<div class="easyui-layout" data-options="fit : true,border : false">
+    <div data-options="region:'center',border:false">
+        <table id="outStorageDetailDg"></table>
+    </div>
+</div>
+
+<div id="outStorageDetailtoolbar" style="display: none;">
+    <div>
+        <input type="hidden" id="outId" value="${outId!}">
+        <form id="detailSearchForm">
+            货物名称:<input name="yzwstock_product.name" style="width:110px" class="easyui-textbox" placeholder="入库批次" />
+            <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="detailSearchFun()">搜索</a>
+            <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_delete',plain:true" onclick="detailCleanFun()">清空</a>
+        </form>
+    </div>
+</div>
+
+<div id="outProductCode-dlg" closed="true" class="easyui-dialog" title="已出库货物详细" style="width:400px;height:400px;padding:1px"
+     data-options="
+                resizable:true,
+                modal:true,
+                cache: false,
+                onBeforeClose:function(){return true}
+            ">
+    <table style="border-color: #dddddd;padding: 1px;margin:3px;">
+        <tr>
+            <td valign="top">
+                <table id="outProductCode-dg"></table>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+<%}; var js={%>
+<script type="text/javascript">
+    var detailFormatterFun = function(value, row, index) {
+        var str = '';
+        <%if( so.hasPermission("/stock/outstorage/delete"))%>
+        str += $.formatString('详细<img style="float:left;" onclick="outStockDetailFun(\'{0}\');" src="{1}" title="查询详细"/>',row.id,'${CONTEXT_PATH}/static/js/ext/style/images/extjs_icons/box.png');
+        <% %>
+        return  str+'';
+    }
+
+</script>
+
+<script src="${CONTEXT_PATH}/static/app/stock-ctrls/outstorage-detail-ctrls.js" type="text/javascript"></script>
+<%}; include("../layout/_layout.html",{head:head,body:body,js:js,ctrls:ctrls}){}%>

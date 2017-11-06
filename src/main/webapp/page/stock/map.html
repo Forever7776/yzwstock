@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+    </style>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=CHGRl5PlE2cbfGVFIvFO4Gbn"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/MarkerTool/1.2/src/MarkerTool_min.js"></script>
+
+    <title>地图展示</title>
+</head>
+<body>
+<div id="allmap" style="height: 80%"></div>
+<div class="layui-layer-btn" style="text-align: right;padding: 0 10px 12px;pointer-events: auto;"><input name="yes" type="button" value="确定" onclick="getPoint()"></div>
+</body>
+</html>
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");
+    var point = new BMap.Point(114.07, 22.62);
+    map.centerAndZoom(point, 11);
+    map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+    map.setCurrentCity("深圳");          // 设置地图显示的城市 此项是必须设置的
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+    var marker;
+    var local = new BMap.LocalSearch(map);
+    local.enableAutoViewport();
+    local.setSearchCompleteCallback(function(searchResult){
+        var poi = searchResult.getPoi(0);
+        if(poi){
+            map.clearOverlays();
+            console.log(poi.point.lng);
+            console.log(poi.point.lat);
+            map.centerAndZoom(poi.point, 15);
+            marker = new BMap.Marker(new BMap.Point(poi.point.lng, poi.point.lat)); // 创建标注，为要查询的地址对应的经纬度
+            map.addOverlay(marker);
+            var content = searchResult.keyword+"<br/><br/>经度：" + poi.point.lng + "<br/>纬度：" + poi.point.lat;
+            var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + content + "</p>");
+            marker.openInfoWindow(infoWindow);
+            marker.addEventListener("click", function(){this.openInfoWindow(infoWindow);});
+            marker.addEventListener("click", function(){this.openInfoWindow(infoWindow);});
+            marker.enableDragging("mouseover",function(){this.openInfoWindow(infoWindow);});
+            marker.addEventListener("dragend",function(){
+                var newPoint = marker.getPosition();
+                console.log(newPoint.lng);
+                console.log(newPoint.lat);
+                var content =  searchResult.keyword+"<br/><br/>经度：" + newPoint.lng + "<br/>纬度：" + newPoint.lat;
+                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + content + "</p>");
+                marker.openInfoWindow(infoWindow);
+                marker.addEventListener("click", function(){this.openInfoWindow(infoWindow);});
+                marker.enableDragging("mouseover",function(){this.openInfoWindow(infoWindow);});
+            });
+        }else{
+            alert("请您输入正确可识别的地址！");
+        }
+    });
+    local.search("${address!''}");//这里动态获取用户输入地址
+
+
+
+    function getPoint(){
+        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+        var newPoint = marker.getPosition();
+        console.log(newPoint.lng);
+        console.log(newPoint.lat);
+        parent.$('input[name="stock.address_point"]').val(newPoint.lng+","+newPoint.lat);
+        parent.layer.close(index);
+    }
+
+/*function getPoint(){
+    alert("${address!''}");
+}*/
+
+
+</script>

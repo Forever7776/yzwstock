@@ -1,0 +1,3 @@
+<sqlGroup name="system.user">
+    <sql id="list">select DISTINCT  system_user.* from system_user left join system_user_role as user_role on user_role.user_id =system_user.id left join system_role as role on role.id = user_role.role_id </sql>
+</sqlGroup>

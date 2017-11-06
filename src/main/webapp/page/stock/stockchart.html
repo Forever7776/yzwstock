@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gbk2312">
+</head>
+<body>
+
+<div id="main" style="height: 500px; border: 1px solid #ccc; padding: 10px;">
+
+</div>
+<script src="${CONTEXT_PATH}/static/js/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="${CONTEXT_PATH}/static/js/echarts/echarts-all.js"></script>
+<script type="text/javascript" language="javascript">
+    var myChart = null;
+    window.onload = DrawEChart;
+    //渲染ECharts图表
+    var url = "${CONTEXT_PATH}/stock/stockchart/echartsList";
+
+    var pageSize = 10;
+    var currentPage = 1;
+    var totalPage = 0;
+    function DrawEChart() {
+        var name = [];
+        var total = [];
+        var temp = [];
+        var freeze = [];
+
+        $.ajax({
+            cache: false,
+            type: 'post',
+            url: url,
+            async: false,
+            dataType: "json",
+            data: {
+                "pageSize": pageSize,
+                "currentPage": currentPage
+            },
+            success: function (obj) {
+                for (var i in obj.specnames) {
+                    name.push(obj.specnames[i]);
+                    total.push(obj.stock_nums[i]);
+                    temp.push(obj.enablenums[i]);
+                    freeze.push(obj.freeze_nums[i]);
+                }
+
+                totalPage = obj.totalPage;//2
+              //  alert(obj.totalPage);
+                if (totalPage > currentPage) {
+                    currentPage = currentPage + 1;
+                } else {
+                    currentPage = 1;
+                }
+            }
+        });
+
+        //图表渲染的容器对象
+        var chartContainer = document.getElementById("main");
+        //加载图表
+        myChart = echarts.init(chartContainer);
+        myChart.showLoading({
+            text: '正在努力加载中...'
+            
+        });
+        myChart.hideLoading();
+        var option = {
+            //图表标题
+            title: {
+                text: "产品动态图表", //正标题
+                link: "${CONTEXT_PATH}/stock/stockquery", //正标题链接 点击可在新窗口中打开
+                x: "center", //标题水平方向位置
+                //subtext: "http://www.xxx.com", //副标题
+                //sublink: "http://www.xxx.com", //副标题链接
+                //正标题样式
+                textStyle: {
+                    fontSize: 24,
+                    color: "red"
+                },
+                //副标题样式
+                subtextStyle: {
+                    fontSize: 12,
+                    color: "red"
+                }
+            },
+            //数据提示框配置
+            tooltip: {
+                trigger: 'axis' //触发类型，默认数据触发，见下图，可选为：'item' | 'axis' 其实就是是否共享提示框
+            },
+            //图例配置
+            legend: {
+                data: ['总数', '可出库数', '冻结数'], //这里需要与series内的每一组数据的name值保持一致
+                y: "bottom"
+            },
+            //工具箱配置
+            toolbox: {
+                show: true,
+                feature: {
+                    mark: {show: true}, // 辅助线标志，上图icon左数1/2/3，分别是启用，删除上一条，删除全部
+                    dataView: {show: true, readOnly: false},// 数据视图，上图icon左数8，打开数据视图
+                    magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},// 图表类型切换，当前仅支持直角系下的折线图、柱状图转换，上图icon左数6/7，分别是切换折线图，切换柱形图
+                    restore: {show: true}, // 还原，复位原始图表，上图icon左数9，还原
+                    saveAsImage: {show: true} // 保存为图片，上图icon左数10，保存
+                }
+            },
+
+            calculable: true,
+            //X轴配置
+            xAxis: [{
+                type: 'category',
+                data: name,
+                name: "产品名称",
+                axisLabel: {
+                    rotate: 45, //刻度旋转45度角
+                    textStyle: {
+                        color: "red",
+                    }
+                }
+            }],
+            grid: {
+                y2: 150
+
+            },
+
+
+            //Y轴配置
+            yAxis: [
+                {
+                    type: 'value',
+                    splitArea: {show: true},
+                    name: "数量"
+                }
+            ],
+            //图表Series数据序列配置
+            series: [
+                {
+                    type: 'line',
+                    name: '总数',
+                    data: total
+
+                },
+                {
+                    type: 'line',
+                    name: '可出库数',
+                    data: temp
+                },
+                {
+                    type: 'line',
+                    name: '冻结数',
+                    data: freeze
+                }
+            ]
+        };
+
+        myChart.showLoading({
+            text: '正在努力加载中...'
+        });
+        setTimeout(DrawEChart, 1500);
+        myChart.hideLoading();
+        myChart.setOption(option, true);
+    }
+
+    function searchE(){
+        var input_value=document.getElementById("input_text").value;
+        //alert(document.getElementById("input_text").value)
+    }
+</script>
+</body>
+</html>

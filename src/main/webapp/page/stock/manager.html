@@ -1,0 +1,164 @@
+<% var head ={ %>
+<title>仓库管理</title>
+<% }; var ctrls= "ng-controller='ManagerCtrls'" ; var body={ %>
+
+<% if( so.hasPermission("/stock/manager/add")) {%>
+<div ng-model="so_add" ng-init="so_add=true"></div>
+<% } if( so.hasPermission("/stock/manager/edit")) {%>
+<div ng-model="so_edit" ng-init="so_edit=true"></div>
+<% }if( so.hasPermission("/stock/manager/delete")) {%>
+<div ng-model="so_delete" ng-init="so_delete=true"></div>
+<% }if( so.hasPermission("/stock/manager/total")) {%>
+<div ng-model="so_istotal" ng-init="so_istotal=true"></div>
+<% }if( so.hasPermission("/stock/manager/batchDelete")) {%>
+<div ng-model="so_batchDelete" ng-init="so_batchDelete=true"></div>
+<%}if( so.hasPermission("/stock/manager/search")) {%>
+<div ng-model="so_serach" ng-init="so_serach=true"></div>
+<%}%>
+
+
+<!--<div class="easyui-layout" data-options="fit : true,border : false">-->
+    <!--<div data-options="region:'center',border:false">-->
+        <!--<table id="treeGrid"></table>-->
+    <!--</div>-->
+<!--</div>-->
+<div id="main" class="easyui-layout" data-options="fit : true,border : false">
+    <div data-options="region:'center',border:false">
+        <table id="treeGrid"></table>
+    </div>
+
+    <div data-options="region:'south',
+        title:'货物预警设置',
+        collapsed:true,
+        split:true,
+        border:false,
+        onExpand : function(){
+            li_south = 1;
+        },
+        onCollapse : function() {
+            li_south = 0;
+        }"
+         style="height: 50%;">
+        <div class="easyui-panel" fit="true" border="false" id="instorageDetail"></div>
+    </div>
+<div id="toolbar" style="padding:2px 5px;display: none;">
+    <div>
+        <form id="searchForm" style="margin-top: 5px;margin-bottom: 5px;">
+            名称:<input name="storage_name" style="width:110px" class="easyui-textbox" placeholder="可以模糊查询名称" />
+           <!-- 上级仓库:
+            <select class="easyui-combotree" style="width:110px" name="stock.pid-i" editable="false"
+                    data-options="url :'${CONTEXT_PATH}/stock/manager/tree',
+			              parentField : 'pid',
+			              lines : true">
+            </select>-->
+           <!-- 创建时间:<input class="easyui-datetimebox" data-options="formatter:myformatterdatetime,parser:myparserdatetime" style="width:130px" name="insertDateStart" id="dateStart">
+            至: <input class="easyui-datetimebox" data-options="formatter:myformatterdatetime,parser:myparserdatetime" style="width:130px" name="insertDateEnd" id="dateEnd">-->
+            <a ng-show="so_serach" href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" ng-click="searchFun();">搜索</a>
+            <a ng-show="so_serach" href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_delete',plain:true" ng-click="cleanFun();">清空</a>
+        </form>
+    </div>
+    <div>
+        <a ng-show="so_add" ng-click="addFun();" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'pencil_add'">添加</a>
+        <a ng-show="so_batchDelete" ng-click="batchDeleteFun();" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'delete'">批量删除</a>
+    </div>
+
+</div>
+
+<div id="menu" class="easyui-menu" style="width: 120px; display: none;">
+    <a ng-show="so_add" ng-click="addFun();" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'pencil_add'">添加</a>
+    <div  ng-show="so_delete" ng-click="deleteFun();" data-options="iconCls:'pencil_delete'">删除</div>
+    <div  ng-show="so_edit" ng-click="editFun();" data-options="iconCls:'pencil'">编辑</div>
+    <div  ng-show="so_istotal" ng-click="totalStock();" data-options="iconCls:'pencil'">设为总仓</div>
+</div>
+
+<!--  dialog -->
+<div id="dlg" class="easyui-dialog" style="width: 450px; height: 350px; padding: 5px 10px" closed="true" buttons="#dlg-buttons"
+     data-options="resizable:true,modal:true">
+
+    <div class="easyui-layout" data-options="fit:true,border:false">
+        <div data-options="region:'center',border:false" title="" style="overflow: hidden;">
+            <form id="fm" method="post">
+                <input name="stock.id" type="hidden">
+                <table class="table table-hover table-condensed">
+                    <tr>
+                        <th>名称</th>
+
+                        <td><input name="stock.name" type="text" placeholder="请输入名称" class="easyui-validatebox span2" data-options="required:true" value=""></td>
+                    </tr>
+                    <tr>
+                        <th>仓库代码</th>
+                        <td><input name="stock.code"  type="text" placeholder="请输入代码" class="easyui-validatebox span2" data-options="required:true" value=""></td>
+                    </tr>
+                    <tr>
+                        <th>仓库地址</th>
+                        <td><input  id="address" type="text"  name="stock.address" placeholder="请输入仓库详细地址" data-options="required:true" class="easyui-validatebox span2"></td>
+                    </tr>
+                    <tr>
+                        <th>仓库位置(经纬度)</th>
+                        <td><input   type="text"  name="stock.address_point" value="" class="easyui-validatebox span2" data-options="required:true" ><a href="javascript:;chooseMAP();">百度地图获取？</a></td>
+                    </tr>
+
+                    <tr>
+                        <th>仓库管理人</th>
+                        <td><select  name="stock.admin" class="easyui-combobox"  editable="false" data-options="required:true,url :'${CONTEXT_PATH}/system/user/getList',valueField:'id',textField:'text'" style="width: 140px"></select></td>
+                    </tr>
+                    <!--
+                    <tr>
+                        <th>上级仓库</th>
+                        <td><select id="pid" name="stock.pid" style="width: 140px; height: 29px;"></select></td>+
+
+                    </tr>
+                    -->
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="dlg-buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" ng-click="submit('#fm','#dlg')">确定</a> <a href="javascript:void(0)" class="easyui-linkbutton"
+                                                                                                     onclick="javascript:$('#dlg').dialog('close')">取消</a>
+</div>
+
+<%}; var js={%>
+<script type="text/javascript">
+    var formatterFun = function(value, row, index) {
+        //alert(row.is_total);
+        var str = '';
+        <%if( so.hasPermission("/stock/manager/edit"))%>
+        str += $.formatString('<img style="float:left;" onclick="$(this).scope().editFun(\'{0}\');" src="{1}" title="编辑"/>',row.id,'${CONTEXT_PATH}/static/js/ext/style/images/extjs_icons/pencil.png');
+        <%if( so.hasPermission("/stock/manager/delete")) %>
+        str += $.formatString('<img style="float:left;" onclick="$(this).scope().deleteFun(\'{0}\');" src="{1}" title="删除"/>',row.id,'${CONTEXT_PATH}/static/js/ext/style/images/extjs_icons/cancel.png');
+        <%if(so.hasPermission("/stock/manager/total"))%>
+            str += $.formatString('<img style="float:left;"  onclick="$(this).scope().totalStock(\'{0}\',\'{1}\');" src="{2}" title="设为总仓"/>',row.id,row.is_total,'${CONTEXT_PATH}/static/js/ext/style/images/extjs_icons/pencil.png');
+        <% %>
+        return str + '';
+    }
+
+
+
+
+   // var address = $("input[name='address']").val();
+    function chooseMAP(address){
+         address=document.getElementById("address").value;
+        if(!address){
+            $.messager.alert('提示',"请先填写仓库详细地址！");
+            return;
+        }
+        layer.open({
+            type: 2,
+            title: '百度地图',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['66%', '90%'],
+            content: PATH+'/stock/manager/map?address='+address //iframe的url
+        });
+
+
+    }
+
+</script>
+
+<script src="${CONTEXT_PATH}/static/app/stock-ctrls/manager-ctrls.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="${CONTEXT_PATH}/static/js/layer/layer.js"></script>
+<%}; include("../layout/_layout.html",{head:head,body:body,js:js,ctrls:ctrls}){}%>

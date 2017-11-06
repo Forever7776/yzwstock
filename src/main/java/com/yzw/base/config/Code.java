@@ -1,0 +1,47 @@
+package com.yzw.base.config;
+
+public enum Code {
+	
+	LOADING(101),
+	
+	LOGING(102), 
+
+	NULL(404),
+	SERVER_ERROR(500),
+	RELOGIN(1001),
+	
+	USER_NOT_EXIT(1003),
+	USER_PWD_ERROR(1004),
+	USER_FRRZE(1005),
+	USER_ATTEMPT(1006),
+	USER_AUTH(1007),
+	
+	EMAIL_VAL_ERROR(1100),
+	EMAIL_EXIT(1101),
+	
+	CAPTCHA_ERROR(1200),
+	PUSH_EROOR(9000),
+
+	
+	FILE_TYPE_ERROR(11000),
+	IMG_SIZE_ERROR(12000),
+	APK_ERROR(13000),
+	
+	
+	
+	OAUTH2_USER_LOGIN_ERROR(20001),
+	OAUTH2_TOEKN_INVALIVE(20002),
+	OAUTH2_CLIENT_ERROR(20003),
+
+
+	;
+	
+	
+	
+	public int code ;
+	
+	Code(int code){
+		this.code=code;
+	}
+	
+}

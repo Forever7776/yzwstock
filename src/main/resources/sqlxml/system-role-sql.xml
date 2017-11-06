@@ -1,0 +1,5 @@
+<sqlGroup name="system.role">
+    <sql id="list">select role.*, p.name as pname from system_role as role left join system_role p  on role.pid=p.id where role.aid = ?</sql>
+    <sql id="getRole"> select role.* from system_user as u join   system_user_role as user_role   on  u.id = user_role.user_id join   system_role as role on role.id= user_role.role_id  where   u.id=?</sql>
+    <sql id="getRolesName">select role.name from system_user as u join system_user_role as user_role on u.id = user_role.user_id  join system_role as role on role.id= user_role.role_id   where u.name=?</sql>
+</sqlGroup>

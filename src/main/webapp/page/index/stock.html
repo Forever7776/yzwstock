@@ -1,0 +1,23 @@
+<% var head ={ %>
+<title>库存查询</title>
+<% }; var ctrls= "ng-controller='ProductStockCtrls'" ; var body={ %>
+
+
+<div class="easyui-layout" data-options="fit : true,border : false">
+	<div data-options="region:'center',border:false">
+		<table id="dg"></table>
+	</div>
+</div>
+
+<%}; var js={%>
+<script type="text/javascript">
+	var formatterFun = function(value, row, index) {
+		var str = '';
+
+		return str + '';
+	}
+</script>
+
+<script src="${CONTEXT_PATH}/static/app/stock-ctrls/replenish-stock-warning-ctrls.js" type="text/javascript"></script>
+<%}; include("../layout/_layout.html",{head:head,body:body,js:js,ctrls:ctrls}){}%>
+

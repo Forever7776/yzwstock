@@ -1,0 +1,56 @@
+<% var head ={ %>
+<title>入库查询</title>
+<% }; var ctrls= "" ; var body={ %>
+<!--<div ng-show="access1" class="easyui-layout" data-options="fit : true,border : false">-->
+    <!--<div data-options="region:'center',border:false">-->
+        <!--<table id="inStorageDetailDg"></table>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div ng-show="access1" id="inStorageDetailtoolbar" style="display: none;">-->
+    <!--<div>-->
+        <!--<input type="hidden" id="inId" value="${inId!}">-->
+        <!--<form id="detailSearchForm">-->
+            <!--货物查询:<input name="yzwstock_product.name" style="width:110px" class="easyui-textbox" placeholder="入库批次" />-->
+            <!--<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="detailSearchFun()">搜索</a>-->
+            <!--<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_delete',plain:true" onclick="detailCleanFun()">清空</a>-->
+        <!--</form>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!-- 审批通过 -->
+<div class="easyui-layout" data-options="fit : true,border : false">
+    <div data-options="region:'center',border:false">
+        <table id="inStorageDetailDg1"></table>
+    </div>
+</div>
+
+<div id="inStorageDetailtoolbar1" style="display: none;">
+    <div>
+        <input type="hidden" id="inId1" value="${inId!}">
+        <input type="hidden" id="in_code" value="${code!}">
+        <form id="detailSearchForm1">
+            货物名称:<input name="yzwstock_product.name" style="width:110px" class="easyui-textbox" placeholder="编号" />
+            <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="detailSearchFun1()">搜索</a>
+            <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_delete',plain:true" onclick="detailCleanFun1()">清空</a>
+        </form>
+    </div>
+</div>
+
+<!--  dialog -->
+<div id="qrCode_dlg" class="easyui-dialog" style="width: 650px; height: 400px; padding: 5px 10px" closed="true" buttons="#dlg-buttons"
+     data-options="resizable:true,modal:true">
+    <div class="easyui-layout" data-options="fit:true,border:false">
+        <div data-options="region:'center',border:false" title="" style="overflow: hidden;">
+            <div id="qrCode" style="width:300px;height:300px;margin:auto"></div>
+        </div>
+    </div>
+</div>
+<div id="dlg-buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#qrCode_dlg').dialog('close')">关闭</a>
+</div>
+
+<%}; var js={%>
+<script src="${CONTEXT_PATH}/static/app/stock-ctrls/instorage-detail-ctrls.js" type="text/javascript"></script>
+<script src="${CONTEXT_PATH}/static/js/jquery-qrcode/jquery.qrcode.js" type="text/javascript"></script>
+<%}; include("../layout/_layout.html",{head:head,body:body,js:js,ctrls:ctrls}){}%>

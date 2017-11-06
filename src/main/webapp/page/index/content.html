@@ -1,0 +1,18 @@
+<% var head ={%>
+<link href="${CONTEXT_PATH}/static/css/msg-style/style.css" rel="stylesheet">
+<link href="${CONTEXT_PATH}/static/css/msg-style/widgets.css" rel="stylesheet">
+<link rel="stylesheet" href="${CONTEXT_PATH}/static/js/jquery-easyui-portal/portal.css" type="text/css">
+
+<%}; var body={%>
+	<div id="portalLayout" ng-controller="ContentCtrls" >
+		<div data-options="region:'center',border:false" ng-init="load()">
+			<div id="portal" style="position: relative">
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	</div>
+<% }; var js = {%>
+<script type="text/javascript" src="${CONTEXT_PATH}/static/js/jquery-easyui-portal/jquery.portal.js" charset="utf-8"></script>
+<script src="${CONTEXT_PATH}/static/app/ctrls/content-ctrls.js" type="text/javascript"></script>
+<% }; include("../layout/_layout.html",{head:head,body:body,js:js}) {}%>

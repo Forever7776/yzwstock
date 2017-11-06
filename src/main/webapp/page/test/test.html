@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<table>
+    <tr>
+        <td>选择API方法</td>
+        <td>
+            <select name="mcode">
+                <option>--选择API方法--</option>
+                <option value="login">--登录:login--</option>
+                <option value="newAccount">--创建账号:newAccount--</option>
+                <option value="initStocks">--初始化仓库:initStock--</option>
+                <option value="initGoods">--初始化商品:initGoods--</option>
+                <option value="initCategory">--初始化商品分类:initCategory--</option>
+                <option value="orderOut">--订单生产出库单:orderOut--</option>
+                <option value="getOutStatus">--订单出库状态:getOutStatus--</option>
+                <option value="clearAccountsData">--清除用户数据:clearAccountsData--</option>
+                <option value="syncdata">--同步数据:syncdata-暂时不用--</option>
+
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            JSON数据：
+        </td>
+        <td>
+            <textarea name="json" style="width: 200px;height: 100px;"></textarea>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><input name="tosubmit" value="提交" type="button" onclick="toApi()"></td>
+    </tr>
+</table>
+<div id="console">
+
+</div>
+
+</body>
+<script src="${CONTEXT_PATH}/static/js/jquery-1.8.3.js" type="text/javascript" charset="utf-8"></script>
+
+<script>
+    function toApi(){
+        var mcode = $("select[name=mcode]").val();
+        var jsonStr = $("textarea[name=json]").val();
+        if(!mcode||!jsonStr){
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            url: "/pf/api?mcode="+mcode,
+            contentType: "application/json",
+            dataType: "json",
+            data: jsonStr,
+            success: function (jsonResult) {
+                console.log(jsonResult)
+                $("#console").text(JSON.stringify(jsonResult));
+            },
+            error:function(){
+                alert("系统错误！");
+            }
+        });
+    }
+
+</script>
+</html>

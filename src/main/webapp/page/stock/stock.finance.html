@@ -1,0 +1,74 @@
+<% var head ={ %>
+<title>仓库财务统计</title>
+<% }; var ctrls= "" ; var body={ %>
+<div class="easyui-layout" data-options="fit : true,border : false">
+    <div data-options="region:'center',border:false">
+        <table id="dg"></table>
+    </div>
+
+    <div id="print-Finance-dlg" class="easyui-dialog" style="width: 450px; height: 200px; padding: 5px 10px" closed="true" buttons="#dlg-buttons-print-Finance"
+         data-options="resizable:true,modal:true">
+        <form method="post" id="print-Financefm4">
+            <div class="easyui-layout" data-options="fit:true,border:false">
+                <br>
+                <br>
+                起:<input class="easyui-datebox"  style="width:130px" name="insertDateStart" id="printDateStart">
+                至: <input class="easyui-datebox"  style="width:130px" name="insertDateEnd" id="printDateEnd">
+                <div  id="ts_message"><label style="color: red">请选择时间！</label></div>
+            </div>
+        </form>
+        <div id="dlg-buttons-print-Finance">
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="return printFinanceExcel()">打印</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#print-Finance-dlg').dialog('close')">取消</a>
+        </div>
+    </div>
+
+    <div id="toolbar" style="display: none;">
+        <div>
+            <form id="searchForm">
+                仓库名称:<input name="stock_name" style="width:110px" class="easyui-textbox" placeholder="可以查询仓库名称" />
+                日期:<input class="easyui-datebox"  style="width:130px" name="startDate">
+                至: <input class="easyui-datebox"  style="width:130px" name="endDate">
+                <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="searchFun();">搜索</a>
+                <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_delete',plain:true" onclick="cleanFun();">清空</a>
+                <!--<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_add',plain:true" onclick="printFinanceFun();">打印财务统计</a>-->
+               <!-- <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_delete',plain:true" onclick="queryTotalStock();">汇总</a>-->
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--<div id="dlg" class="easyui-dialog" style="width: 750px; height: 450px; padding: 5px 10px" closed="true" buttons="#dlg-buttons"
+     data-options="resizable:true,modal:true">
+    <div class="easyui-layout" data-options="fit:true,border:false">
+        <div data-options="region:'center',border:false" title="" style="overflow: hidden;">
+            <form id="fm" method="post"  name="instorage_form1"  >
+                <input name="instorage.id" type="hidden">
+                <table class="table table-hover table-condensed">
+                    <tr>
+                                    <th>仓库名称</th>
+                                    <th>入库单总数</th>
+                                    <th>出库单总数</th>
+                                    <th>入库货品总金额</th>
+                                    <th>入库货品总金额</th>
+                    </tr>
+                    <tr>
+                        <th>仓库名称</th>
+                        <th>入库单总数</th>
+                        <th>出库单总数</th>
+                        <th>入库货品总金额</th>
+                        <th>入库货品总金额</th>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="dlg-buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton"  onclick="$(this).scope().submit('#fm','#dlg');" name="instorageP" id="instorage_bt">保存</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#dlg').dialog('close'); ">取消</a>
+</div>-->
+
+<%}; var js={%>
+<script src="${CONTEXT_PATH}/static/app/stock-ctrls/stock-finance-ctrls.js" type="text/javascript"></script>
+<%}; include("../layout/_layout.html",{head:head,body:body,js:js,ctrls:ctrls}){}%>

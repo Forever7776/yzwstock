@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <meta name="keywords" content="Flat Dark Web Login Form Responsive Templates, Iphone Widget Template, Smartphone login forms,Login form, Widget Template, Responsive Templates, a Ipad 404 Templates, Flat Responsive Templates" />
+    <link href="/static/css/admin/style.css" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="/static/css/admin/supersized.css">
+    <script src="http://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/app/admin-ctrls/login-ctrls.js"></script>
+    <script type="text/javascript" src="/static/js/tooltips.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.form.js"></script>
+
+</head>
+<body>
+
+<h1>有种网库存系统用户管理后台</h1>
+<div class="login-form">
+    <div class="head-info">
+        <label class="lbl-1"> </label>
+        <label class="lbl-2"> </label>
+        <label class="lbl-3"> </label>
+    </div>
+    <div class="clear"> </div>
+    <div class="avtar"><img src="../static/images/admin-img/avtar.png" /></div>
+    <form  id="loginform" action="/admin/loginpost">
+        <input type="text" id="username" name="username" class="form-control" value="请输入用户名" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = '请输入用户名';}" >
+        <div class="key1"><input type="password" id="password" class="form-control" name="password" value="Password" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = 'Password';}"></div>
+    </form>
+    <div class="signin" onclick="login(this)"><input type="submit" value="登录"></div>
+</div>
+<div class="copy-rights">
+    <p>Copyright &copy; 2015.Company name All rights reserved</p>
+</div>
+
+</body>
+</html>

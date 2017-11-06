@@ -1,0 +1,146 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Amaze UI Admin help Examples</title>
+  <meta name="description" content="杩欐槸涓�涓� help 椤甸潰">
+  <meta name="keywords" content="help">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="icon" type="image/png" href="${CONTEXT_PATH}/static/assets/i/favicon.png">
+  <link rel="apple-touch-icon-precomposed" href="${CONTEXT_PATH}/static/assets/i/app-icon72x72@2x.png">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+  <link rel="stylesheet" href="${CONTEXT_PATH}/static/assets/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="${CONTEXT_PATH}/static/assets/css/admin.css">
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">浣犳鍦ㄤ娇鐢�<strong>杩囨椂</strong>鐨勬祻瑙堝櫒锛孉maze UI 鏆備笉鏀寔銆� 璇� <a href="http://browsehappy.com/" target="_blank">鍗囩骇娴忚鍣�</a>
+  浠ヨ幏寰楁洿濂界殑浣撻獙锛�</p>
+<![endif]-->
+
+<header class="am-topbar admin-header">
+  <div class="am-topbar-brand">
+    <strong>Amaze UI</strong> <small>鍚庡彴绠＄悊妯℃澘</small>
+  </div>
+
+  <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">瀵艰埅鍒囨崲</span> <span class="am-icon-bars"></span></button>
+
+  <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+    <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+      <li><a href="javascript:;"><span class="am-icon-envelope-o"></span> 鏀朵欢绠� <span class="am-badge am-badge-warning">5</span></a></li>
+      <li class="am-dropdown" data-am-dropdown>
+        <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+          <span class="am-icon-users"></span> 绠＄悊鍛� <span class="am-icon-caret-down"></span>
+        </a>
+        <ul class="am-dropdown-content">
+          <li><a href="#"><span class="am-icon-user"></span> 璧勬枡</a></li>
+          <li><a href="#"><span class="am-icon-cog"></span> 璁剧疆</a></li>
+          <li><a href="#"><span class="am-icon-power-off"></span> 閫�鍑�</a></li>
+        </ul>
+      </li>
+      <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">寮�鍚叏灞�</span></a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="am-cf admin-main">
+  <!-- sidebar start -->
+  <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+    <div class="am-offcanvas-bar admin-offcanvas-bar">
+      <ul class="am-list admin-sidebar-list">
+        <li><a href="admin-index.html"><span class="am-icon-home"></span> 棣栭〉</a></li>
+        <li class="admin-parent">
+          <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 椤甸潰妯″潡 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+          <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
+            <li><a href="admin-user.html" class="am-cf"><span class="am-icon-check"></span> 涓汉璧勬枡<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+            <li><a href="admin-help.html"><span class="am-icon-puzzle-piece"></span> 甯姪椤�</a></li>
+            <li><a href="admin-gallery.html"><span class="am-icon-th"></span> 鐩稿唽椤甸潰<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
+            <li><a href="admin-log.html"><span class="am-icon-calendar"></span> 绯荤粺鏃ュ織</a></li>
+            <li><a href="admin-404.html"><span class="am-icon-bug"></span> 404</a></li>
+          </ul>
+        </li>
+        <li><a href="admin-table.html"><span class="am-icon-table"></span> 琛ㄦ牸</a></li>
+        <li><a href="admin-form.html"><span class="am-icon-pencil-square-o"></span> 琛ㄥ崟</a></li>
+        <li><a href="#"><span class="am-icon-sign-out"></span> 娉ㄩ攢</a></li>
+      </ul>
+
+      <div class="am-panel am-panel-default admin-sidebar-panel">
+        <div class="am-panel-bd">
+          <p><span class="am-icon-bookmark"></span> 鍏憡</p>
+          <p>鏃跺厜闈欏ソ锛屼笌鍚涜锛涚粏姘存祦骞达紝涓庡悰鍚屻�傗�斺�� Amaze UI</p>
+        </div>
+      </div>
+
+      <div class="am-panel am-panel-default admin-sidebar-panel">
+        <div class="am-panel-bd">
+          <p><span class="am-icon-tag"></span> wiki</p>
+          <p>Welcome to the Amaze UI wiki!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- sidebar end -->
+
+  <!-- content start -->
+  <div class="admin-content">
+    <div class="am-cf am-padding">
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">甯姪椤甸潰</strong> / <small>Help Page</small></div>
+    </div>
+
+    <hr/>
+
+    <div class="am-g">
+      <div class="am-u-sm-12 am-u-sm-centered">
+        <h2>Amaze UI 1.0.0 Beta</h2>
+        <p>瀵逛簬 Amaze UI锛屾垜浠笉鏄垱閫犺�呫��</p>
+        <p>Amaze UI 鐨勮癁鐢燂紝渚濇墭浜� GitHub 鍙婂叾浠栨妧鏈ぞ鍖轰笂涓�浜涗紭绉�鐨勮祫婧愶紱Amaze UI 鐨勬垚闀匡紝鍒欑涓嶅紑鐢ㄦ埛鐨勬敮鎸併��</p>
+        <p>鎰熻阿寮�婧愶紒鎰熻阿鏈変綘锛�</p>
+        <hr/>
+      </div>
+
+      <div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4">
+        <h3>Bug 鍙嶉</h3>
+        <p>鎰熻阿瀵� Amaze UI 鐨勫叧娉ㄥ拰鏀寔锛屽閬囧埌 Bug 鎴栬�呬娇鐢ㄩ棶棰橈紝鍙互閫氳繃浠ヤ笅閫斿緞鍙嶉缁欐垜浠細</p>
+        <ol>
+          <li>鍦� GitHub 椤圭洰涓婚〉鎻愪氦 <a href="">Issue</a>銆�</li>
+          <li>鍦� GitHub 椤圭洰涓婚〉鎻愪氦 <a href="">Issue</a>銆�</li>
+        </ol>
+        <p>鍙嶉娉ㄦ剰浜嬮」</p>
+        <p>涓轰簡鑳芥渶鍑嗙‘鐨勪紶杈炬墍鎻忚堪鐨勯棶棰橈紝 寤鸿浣犲湪鍙嶉鏃堕檮涓婃紨绀猴紝鏂逛究鎴戜滑鐞嗚В銆�</p>
+        <p>涓嬮潰鐨勫嚑涓摼鎺ユ槸鎴戜滑鍦ㄥ嚑涓湪绾胯皟璇曞伐鍏蜂笂寤虹殑椤甸潰锛� 宸茬粡寮曞叆浜� Amaze UI 鏍峰紡鍜岃剼鏈紝浣犲彲浠ラ�夋嫨浣犲枩娆㈢殑宸ュ叿銆怓ork銆戜竴浠斤紝 鎶婅鏈夐棶棰樼殑鍦烘櫙绮樺湪閲岄潰锛屽弽棣堢粰鎴戜滑銆�</p>
+        <ol>
+          <li><a href="http://jsbin.com/kijiqu/1/edit?html,output" target="_blank">JSBin</a> </li>
+          <li><a href="http://jsfiddle.net/hegfirose/W22fV/" target="_blank">JSFiddle</a> </li>
+          <li><a href="http://codepen.io/minwe/pen/AEeup" target="_blank">CodePen</a> </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- content end -->
+
+</div>
+
+<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+<footer>
+  <hr>
+  <p class="am-padding-left">漏 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+</footer>
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="assets/js/amazeui.min.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

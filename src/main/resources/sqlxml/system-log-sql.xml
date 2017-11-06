@@ -1,0 +1,6 @@
+<sqlGroup name="system.log">
+    <sql id="list">SELECT system_log.*,system_user.name as user_name FROM `system_log` left join system_user   on  system_user.id = system_log.uid </sql>
+    <sql id="chart">SELECT count(*) as count ,DATE_FORMAT(date,'%m-%d') as date FROM `system_log` </sql>
+    <sql id="getVisitCount">SELECT count(*) as count ,DATE_FORMAT(date,'%m-%d') as date FROM `system_log` where operation=1  GROUP BY DATE_FORMAT(date,'%Y-%m-%d') ORDER BY date desc limit 7</sql>
+    <sql id="getLoginCount">SELECT count(*) as count ,DATE_FORMAT(date,'%m-%d') as date FROM `system_log` where operation=2  GROUP BY DATE_FORMAT(date,'%Y-%m-%d') ORDER BY date desc limit 7</sql>
+</sqlGroup>

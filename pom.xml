@@ -1,0 +1,213 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.yzw</groupId>
+  <artifactId>yzwstock</artifactId>
+  <packaging>war</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>yzwstock Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.wxb</groupId>
+      <artifactId>wxbsdk</artifactId>
+      <version>4.2.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>net.bull.javamelody</groupId>
+      <artifactId>javamelody-core</artifactId>
+      <version>1.9.0</version>
+    </dependency>
+    <!-- fastjson start -->
+
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.2.4</version>
+    </dependency>
+    <!-- fastjson end -->
+
+
+    <!-- mysql-java end-->
+    <!-- mail -->
+    <dependency>
+      <groupId>javax.mail</groupId>
+      <artifactId>mail</artifactId>
+      <version>1.4.1</version>
+      <!-- <scope>provided</scope> -->
+    </dependency>
+    <!-- mail end -->
+
+
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bctsp-jdk16</artifactId>
+      <version>1.46</version>
+      <type>pom.sig</type>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-all</artifactId>
+      <version>1.2.3</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.beetl</groupId>
+      <artifactId>beetl-core</artifactId>
+      <version>2.2.3</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.mortennobel</groupId>
+      <artifactId>java-image-scaling</artifactId>
+      <version>0.8.5</version>
+    </dependency>
+
+    <dependency>
+      <groupId>net.sf.ehcache</groupId>
+      <artifactId>ehcache-core</artifactId>
+      <version>2.6.10</version>
+    </dependency>
+
+    <!-- thumbnailator -->
+    <dependency>
+      <groupId>net.coobird</groupId>
+      <artifactId>thumbnailator</artifactId>
+      <version>0.4.7</version>
+    </dependency>
+
+
+    <dependency>
+      <groupId>eu.bitwalker</groupId>
+      <artifactId>UserAgentUtils</artifactId>
+      <version>1.15</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.abel533</groupId>
+      <artifactId>ECharts</artifactId>
+      <version>2.2.0.1</version>
+    </dependency>
+
+    <!-- oauth2 oltu -->
+    <dependency>
+      <groupId>org.apache.oltu.oauth2</groupId>
+      <artifactId>org.apache.oltu.oauth2.authzserver</artifactId>
+      <version>0.31</version>
+    </dependency>
+
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+      <version>2.7.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.stuxuhai</groupId>
+      <artifactId>jpinyin</artifactId>
+      <version>1.0</version>
+    </dependency>
+
+
+    <dependency>
+        <groupId>com.google.zxing</groupId>
+        <artifactId>core</artifactId>
+        <version>3.1.0</version>
+    </dependency>
+
+    <dependency>
+        <groupId>com.google.zxing</groupId>
+        <artifactId>javase</artifactId>
+        <version>3.0.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>iText</groupId>
+      <artifactId>iText</artifactId>
+      <version>2.0.8</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.lowagie</groupId>
+      <artifactId>itext-rtf</artifactId>
+      <version>2.1.7</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.abel533</groupId>
+      <artifactId>ECharts</artifactId>
+      <version>2.2.6</version>
+    </dependency>
+
+  </dependencies>
+  <build>
+    <finalName>yzwstock</finalName>
+    <plugins>
+    <plugin>
+      <groupId>org.mortbay.jetty</groupId>
+      <artifactId>jetty-maven-plugin</artifactId>
+      <version>8.1.8.v20121106</version>
+      <configuration>
+        <stopKey>stop</stopKey>
+        <stopPort>5588</stopPort>
+        <webAppConfig>
+          <contextPath>/</contextPath>
+          <defaultsDescriptor>src/main/resources/webdefault.xml</defaultsDescriptor>
+        </webAppConfig>
+        <scanIntervalSeconds>5</scanIntervalSeconds>
+        <contextXml>${project.basedir}/src/main/resources/jetty-context.xml</contextXml>
+        <connectors>
+          <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+            <port>82</port>
+            <maxIdleTime>60000</maxIdleTime>
+          </connector>
+        </connectors>
+      </configuration>
+    </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>2.10</version>
+        <executions>
+          <execution>
+            <id>copy-dependencies</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/lib</outputDirectory>
+              <overWriteReleases>false</overWriteReleases>
+              <overWriteSnapshots>false</overWriteSnapshots>
+              <overWriteIfNewer>true</overWriteIfNewer>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+        <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+            <source>1.7</source>
+            <target>1.7</target>
+            <encoding>UTF-8</encoding>
+        </configuration>
+    </plugin>
+    </plugins>
+  </build>
+</project>

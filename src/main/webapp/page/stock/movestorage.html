@@ -1,0 +1,504 @@
+<% var head ={ %>
+<title>入库管理</title>
+<% }; var ctrls= "ng-controller='MoveStorageCtrls'" ; var body={ %>
+
+<% if( so.hasPermission("/stock/instorage/add")) {%>
+<div ng-model="so_add" ng-init="so_add=true"></div>
+<% } if( so.hasPermission("/stock/instorage/edit")) {%>
+<div ng-model="so_edit" ng-init="so_edit=true"></div>
+<% }if( so.hasPermission("/stock/instorage/delete")) {%>
+<div ng-model="so_delete" ng-init="so_delete=true"></div>
+<%}if( so.hasPermission("/stock/instorage/search")) {%>
+<div ng-model="so_serach" ng-init="so_serach=true"></div>
+<%}%>
+
+<div id="main" class="easyui-layout" data-options="fit : true,border : false">
+    <div data-options="region:'center',border:false">
+        <table id="dg"></table>
+    </div>
+
+    <div id="print-MoveStorage-dlg" class="easyui-dialog" style="width: 450px; height: 200px; padding: 5px 10px" closed="true" buttons="#dlg-buttons-print-MoveStorage"
+         data-options="resizable:true,modal:true">
+        <form method="post" id="print-MoveStoragefm4">
+            <div class="easyui-layout" data-options="fit:true,border:false">
+                <br>
+                <br>
+                起:<input class="easyui-datebox"  style="width:130px" name="insertDateStart" id="printDateStart">
+                至: <input class="easyui-datebox"  style="width:130px" name="insertDateEnd" id="printDateEnd">
+                <div  id="ts_message"><label style="color: red">请选择时间！</label></div>
+            </div>
+        </form>
+        <div id="dlg-buttons-print-MoveStorage">
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="return printMoveStorageExcel()">打印</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#print-MoveStorage-dlg').dialog('close')">取消</a>
+        </div>
+    </div>
+
+    <div id="toolbar" style="display: none;">
+        <div>
+            <form id="searchForm">
+                单号:<input name="move_code-*" style="width:110px" class="easyui-textbox" placeholder="可以查询入库单号" />
+                创建时间:<input class="easyui-datetimebox"  style="width:130px" name="insertDateStart" id="dateStart">
+                至: <input class="easyui-datetimebox"  style="width:130px" name="insertDateEnd" id="dateEnd">
+                <a ng-show="so_serach" href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" ng-click="searchFun();">搜索</a>
+                <a ng-show="so_serach" href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_delete',plain:true" ng-click="cleanFun();">清空</a>
+                <a ng-show="so_serach" href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_add',plain:true" ng-click="printMoveStorageFun();">打印调库单(选择性)</a>
+            </form>
+        </div>
+        <a ng-show="so_add" ng-click="addFun();" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'pencil_add'">添加</a> <a
+        <a ng-show="so_serach" href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_add',plain:true" ng-click="searchFun();">过滤条件</a>
+        <a ng-show="so_serach" href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_delete',plain:true" ng-click="cleanFun();">清空条件</a>
+
+    </div>
+
+    <div id="menu" class="easyui-menu" style="width: 120px; display: none;">
+        <a ng-show="so_add" ng-click="addFun();" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'pencil_add'">添加</a>
+        <div  ng-show="so_delete" ng-click="deleteFun();" data-options="iconCls:'pencil_delete'">删除</div>
+        <!--<div  ng-show="so_edit" ng-click="editFun();" data-options="iconCls:'pencil'">编辑</div>-->
+    </div>
+
+    <!--  dialog -->
+    <div id="dlg" class="easyui-dialog" style="width: 650px; height: 460px; padding: 5px 10px" closed="true" buttons="#dlg-buttons"
+         data-options="resizable:true,modal:true">
+        <div class="easyui-layout" data-options="fit:true,border:false">
+            <div data-options="region:'center',border:false" title="" style="overflow: hidden;">
+                <form id="fm" method="post">
+                    <input name="moveStorage.id" type="hidden">
+                    <table class="table table-hover table-condensed">
+                        <tr>
+                            <th>出库产品信息</th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>产品仓库</th>
+                            <td>
+                                <input name="child.stock_id" style="width: 148px; height: 25px" type="text" placeholder="请选择产品" class="easyui-validatebox span2" data-options="required:true">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>出库方式</th>
+                            <td>
+                                <select name="child.out_type"  style="width: 148px; height: 25px" type="text" placeholder="请选择出库方式" class="easyui-combobox" width="148px;" height="25px;" data-options="required:true">
+                                    <option value="3" id="scancodeOut">调库（扫码出库）</option>
+                                    <option value="8" id="randomOut">调库（随机出库）</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>出库产品</th>
+                            <th>出库数量</th>
+                            <th>出库价格</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input name="child.product_id" type="hidden" />
+                                <input name="child.product_max_nums" type="hidden" />
+                                <input name="child.product_show" type="text" class="span2" data-options="required:true" onclick="loadSelectStock(this)" onkeyup="clearInput(this)">
+                            </td>
+                            <td>
+                                <input name="child.product_nums"  type="text" placeholder="请输入数量" onchange="changeCheck(this)" class="easyui-validatebox span2" data-options="required:true" >
+                            </td>
+                            <td>
+                                <input name="child.price" type="text" placeholder="请输入出库价格" class="easyui-validatebox span2" data-options="required:true" onchange="changeprice(this)">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>入库仓库</th>
+                            <td>
+                                <select class="easyui-combotree" name="child.stock_id_in" editable="false" style="width: 148px; height: 25px"
+                                        data-options="url :'${CONTEXT_PATH}/stock/manager/tree',parentField : 'pid', lines : true">
+                                </select>
+                            </td>
+                            <td>
+                                <input name="child.product_id_in" id="id_in" type="hidden">
+                                <input name="child.nums_in" id="nums_in"   type="hidden">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>录入人</th>
+                            <td><input name="movetorage.input_name"  type="text" placeholder="请输入录入人" class="easyui-validatebox span2" data-options="required:true"></td>
+                        </tr>
+                        <tr>
+                            <th>备注</th>
+                            <td><textarea rows="2" cols="8" name="instorage.remarks"></textarea></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="stock-select-dlg" closed="true" class="easyui-dialog" title="选择仓库" style="width:380px;height:400px;padding:1px"
+         data-options="
+                resizable:true,
+                toolbar: '#stock-dlg-toolbar',
+                buttons: '#stock-dlg-buttons',
+                modal:true,
+                cache: false,
+                onBeforeClose:function(){ selectData =[];return true}
+            ">
+        <table border="1" style="border-color: #dddddd;padding: 1px;margin:3px;">
+            <tr>
+                <td style="width: 370px;text-indent: 1em;" align="left">
+                    <b>选择仓库</b>
+                </td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    <table id="stock-dg"></table>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    <div id="stock-dlg-toolbar" style="padding:2px 0">
+        <table cellpadding="0" cellspacing="0" style="width:100%">
+            <tr>
+                <td style="text-align:right;padding-right:2px">
+                    <!--<input class="easyui-searchbox" data-options="prompt:'搜索'" style="width:150px"/>-->
+                    <input type="text" id="searchProduct" style="width:150px;height: 12px;" placeholder="搜索"><a class="easyui-linkbutton" plain="true" onclick="doSearch();">搜索</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="stock-dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbu tton" id="productnumshidden" onclick="selectConfirm(this)">确定</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#stock-select-dlg').dialog('close')">关闭</a>
+    </div>
+    <div id="dlg-buttons">
+
+        <a href="javascript:void(0)" class="easyui-linkbutton"  onclick="$(this).scope().submit('#fm','#dlg'); " id="movestorage_bt">保存</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#dlg').dialog('close')">取消</a>
+    </div>
+
+
+    <div id="dlg-review" class="easyui-dialog" style="width: 340px; height: 300px; padding: 5px 10px" closed="true" buttons="#dlg-buttons-review"
+         data-options="resizable:true,modal:true">
+        <div class="easyui-layout" data-options="fit:true,border:false">
+            <div data-options="region:'center',border:false" title="" style="overflow: hidden;">
+                <form id="fm2" method="post"  name="review_form">
+                    <input name="moveStorage.id" type="hidden" class="span2">
+                    <input name="moveStorage.instorage_id" type="hidden">
+                    <input name="moveStorage.outstorage_id" type="hidden">
+                    <table class="table table-hover table-condensed">
+                        <tr>
+                            <th>意见</th>
+                            <td><select name="moveStorage.review_status" class="easyui-combobox" data-options="width:140,height:29,editable:false,panelHeight:'auto'" required="required">
+                                <option value="1">通过
+                                <option value="0">不通过
+                            </select></td>
+                        </tr>
+                        <tr>
+                            <th>备注</th>
+                            <td><textarea rows="4" cols="8" name="moveStorage.review_text" placeholder="请填写审批意见"></textarea></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="dlg-buttons-review">
+        <a href="javascript:void(0)" class="easyui-linkbutton" ng-click="submit('#fm2','#dlg-review')" id="review_id">审批</a> <a href="javascript:void(0)" class="easyui-linkbutton"
+                                                                                                                 onclick="javascript:$('#dlg-review').dialog('close')">取消</a>
+    </div>
+
+    <div id="movedetailProducts" class="easyui-dialog" style="width: 600px; height: 400px; padding: 5px 10px" closed="true"
+         data-options="resizable:true,modal:true" title="调库详情">
+        <div class="easyui-layout" data-options="fit:true,border:false">
+            <div data-options="region:'center',border:false">
+                <table id="detailProducts"></table>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="dlg-check" class="easyui-dialog" style="width: 340px; height: 300px; padding: 5px 10px" closed="true" buttons="#dlg-buttons-check"
+         data-options="resizable:true,modal:true">
+        <div class="easyui-layout" data-options="fit:true,border:false">
+            <div data-options="region:'center',border:false" title="" style="overflow: hidden;">
+                <form id="fm3" method="post">
+                    <input name="moveStorage.id" type="hidden" class="span2">
+                    <input name="moveStorage.instorage_id" type="hidden">
+                    <input name="moveStorage.outstorage_id" type="hidden">
+                    <table class="table table-hover table-condensed">
+                        <tr>
+                            <th>核对结果</th>
+                            <td><select name="outStorage.check" class="easyui-combobox" data-options="width:140,height:29,editable:false,panelHeight:'auto'" required="required">
+                                <option value="1">核对通过
+                                <option value="0">核对不通过
+                            </select></td>
+                        </tr>
+                        <tr>
+                            <th>备注</th>
+                            <td><textarea rows="4" cols="8" name="outStorage.check_text" placeholder="请填写核对意见"></textarea></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="dlg-buttons-check">
+        <a href="javascript:void(0)" class="easyui-linkbutton" ng-click="submit('#fm3','#dlg-check')" id="check_id">验收</a> <a href="javascript:void(0)" class="easyui-linkbutton"
+                                                                                                                onclick="javascript:$('#dlg-check').dialog('close')">取消</a>
+    </div>
+
+    <%}; var js={%>
+    <script type="text/javascript">
+        var formatterFun = function(value, row, index) {
+            $("#mm"+row.id).remove();
+            var str = '';
+            str +=$.formatString('<a id="btn-edit'+row.id+'" >详细</a><div id="mm'+row.id+'" style="width:150px; display:none">' +
+            '<div onclick="movedetailpro('+row.id+')">查看</div>');
+
+            <%if( so.hasPermission("/stock/instorage/review"))%>
+            if(row.status==1){
+                str +='<div onclick="$(this).scope().review('+row.id+')">审批</div>';
+            }
+            <%if( so.hasPermission("/stock/instorage/delete"))%>
+            if(row.status<2){
+                str +='<div onclick="$(this).scope().deleteFun('+row.id+')">删除</div>';
+            }
+            <%if( so.hasPermission("/stock/instorage/check"))%>
+            if(row.status==2){
+                str += '<div onclick="$(this).scope().check('+row.id+')">验收</div>';
+            }
+
+            str += '</div>';
+
+            /*<%if( so.hasPermission("/stock/instorage/review"))%>
+            if(row.status==1) str += $.formatString('<img style="float:left;" onclick="$(this).scope().review(\'{0}\');" src="{1}" title="审批"/>',row.id,'${CONTEXT_PATH}/static/js/ext/style/images/extjs_icons/page/report_go.png');
+            <%if( so.hasPermission("/stock/instorage/check"))%>
+            if(row.status==2) str += $.formatString('<img style="float:left;" onclick="$(this).scope().check(\'{0}\');" src="{1}" title="验收"/>',row.id,'${CONTEXT_PATH}/static/js/ext/style/images/extjs_icons/control/control_repeat.png');
+            <%if( so.hasPermission("/stock/instorage/delete"))%>
+            str += $.formatString('<img style="float:left;" onclick="$(this).scope().deleteFun(\'{0}\');" src="{1}" title="删除"/>',row.id,'${CONTEXT_PATH}/static/js/ext/style/images/extjs_icons/cancel.png');
+            str += $.formatString('<img style="float:left;" onclick="movedetailpro(\'{0}\');" src="{1}" title="查看"/>',row.id,'${CONTEXT_PATH}/static/js/ext/style/images/extjs_icons/box.png');
+            <% %>*/
+            return  str+'';
+        }
+        var addHtml = function(){
+            var html =$.formatString('<tr><td>'+
+                    '<input name="child.product_id"  type="text" placeholder="请选择货物" style="width: 80px;" class="easyui-validatebox span2" data-options="required:true">'+
+                    '</td><td>'+
+                    '<select class="easyui-combotree" name="child.stock_id" style="width: 120px;" editable="false"></select>'+
+                    '</td><td><input name="child.price" type="text" placeholder="请输入入库单价" class="easyui-validatebox span2" data-options="required:true">'+
+                    '</td><td><a href="javascript:" name="easyui-btn" onclick="removeHtml(this);"></a></td></tr>');
+            $("#content").append(html);
+            initValidator("input[name='child.nums']:last");
+            initValidator("input[name='child.price']:last");
+            initIcons("#content a[name='easyui-btn']:last");
+        }
+
+        var select_stock =null;
+
+        var initProduct = function(selector){
+            $(selector).combogrid({
+                panelWidth:300,
+                width:120,
+                url: '/stock/product/listbyProduct',
+                idField:'id',
+                textField:'productName',
+                mode:'remote',
+                fitColumns:true,
+                columns:[[
+                    {field:'id',title:'id',width:60},
+                    {field:'name',title:'货物名称',align:'right',width:80},
+                    {field:'code',title:'货物代码',align:'right',width:60},
+                    {field:'spec',title:'规格名称',align:'right',width:60}
+                ]]
+            });
+        }
+
+        var loadSelectStock = function(obj){
+            pop_obj = obj;
+            var $ROW =  $(obj).parent().parent();
+            var stockid = $("input[name='child.stock_id']").val();
+            var out_type = $("input[name='child.out_type']").val();
+            if(!stockid){
+                $.messager.alert('提示',"请选择仓库！");
+                return false;
+            }
+            if(!out_type){
+                $.messager.alert('提示',"请选择出库方式！");
+                return false;
+            }
+
+            $('#stock-select-dlg').dialog({
+                modal:true,
+                onOpen:function(){
+                    select_stock =null;
+                    select_stock=$("#stock-dg").datagrid({
+                        url:PATH+'/stock/stockProduct/loadProductStockData?stockid='+stockid,
+                        fitColumns : true,
+                        idField : 'stockid',
+                        striped: true,
+                        border : true,
+                        nowrap:false,
+                        pagination : true,
+                        rownumbers:false,
+                        singleSelect:true,
+                        checkOnSelect:true,
+                        selectOnCheck:true,
+                        pageSize : 15,
+                        columns:[[
+                            {
+                                field : 'product_id',
+                                title : '编号',
+                                width : "50px",
+                                checkbox : true
+                            },
+                            {
+                                field : 'productName',
+                                title : '产品名称',
+                                width : "100px"
+                            },
+                            {
+                                field : 'nums',
+                                title : '库存',
+                                width : "80px"
+                            },
+                            {
+                                field : 'lockingnums',
+                                title : '冻结数',
+                                width : "80px"
+                            },
+                            {
+                                field : 'enablenums',
+                                title : '最大可出库数',
+                                width : "80px"
+                            }
+                        ]],
+                        onCheck:function(index,row){
+                        },
+                        onUncheck:function(index,row){
+                        }
+                    });
+
+                    select_stock.datagrid("clearChecked");
+                }
+            }).dialog("open");
+
+        };
+
+        function doSearch(){
+            $("#stock-dg").datagrid('load',{
+
+                searchProduct:$('#searchProduct').val()
+            });
+        }
+
+        var addFunformatter = function(value, row, index) {
+        }
+        var selectConfirm = function(){
+            selectData = $(select_stock).datagrid('getChecked');
+            if(!selectData||selectData.length<1){
+                $.messager.alert('提示',"请选择产品！");
+                return;
+            }
+            console.log(selectData);
+            var str="";
+            var max_nums = "";
+            var str_show = "";
+            for(var i=0;i<selectData.length;i++){
+                str +=selectData[i]['product_id'];
+                str_show +=selectData[i]['productName'];
+                max_nums +=selectData[i]['enablenums'];
+                if(i!=selectData.length-1){
+                    str +=",";
+                    max_nums +=",";
+                    str_show +=",";
+                }
+            }
+            $(pop_obj).val(str_show);
+
+            $(pop_obj).parent().find("input[name='child.product_max_nums']").val(max_nums);
+            $(pop_obj).parent().find("input[name='child.product_id']").val(str);
+
+            $('#stock-select-dlg').dialog('close');
+
+        }
+
+        var changeCheck = function(obj){
+            var $ROW = $(obj).parent().parent();
+            var re = /^[1-9]+[0-9]*]*$/; //判断字符串是否为数字 //判断正整数
+            var nums = $(obj).val();
+            if(!nums){
+                return;
+            }
+            if (!re.test(nums))
+            {
+                $.messager.alert('提示',"出库产品数应该为数字！");
+                $(obj).focus();
+                return false;
+            }
+
+            var max_nums = $($ROW).find('input[name="child.product_max_nums"]').val();
+
+            if(parseInt(max_nums)<parseInt(nums)){
+                $.messager.alert('提示',"库存不足，最大可出库数为:"+max_nums);
+                $(obj).val("");
+                return false;
+            }
+
+            var temp=/^\d+(\.\d+)?$/;
+            var price = $ROW.find("input[name='child.product_price']").val();
+            var sum =  $ROW.find("input[name='child.product_nums']").val();
+            if(!temp.test(price) || !temp.test(sum)){
+                $ROW.find("input[name='child.sums']").val("");
+                return false;
+            } else if(price != "" && sum != "" ){
+                $ROW.find("input[name='child.sums']").val(parseFloat(price) * parseFloat(sum));
+            } else {
+                $ROW.find("input[name='child.sums']").val("");
+                return false;
+            }
+
+            var t = 0,
+                    result = $("#content input[name='child.sums']");
+            for(var i=0;i<result.length;i++){
+                t = t + parseFloat(result[i].value);
+                $("input[name='total_fee']").val(t);
+            }
+
+        }
+
+        var changeprice = function(obj){
+            var $that = $(obj);
+            var temp=/^\d+(\.\d+)?$/;
+            var price =  $that.parent().parent().find("input[name='child.price']").val();
+            if(!temp.test(price)) {
+                $.messager.alert('提示', "请输入数字！");
+                return false;
+            }
+        }
+
+        var initStock = function(selector){
+            $(selector).combotree({url: '${CONTEXT_PATH}/stock/manager/tree',parentField: 'pid',lines : true});
+        }
+        var initIcons = function(selector){
+            $(selector).linkbutton({
+                iconCls: 'icon-cancel'
+            });
+        }
+        var removeHtml = function(obj){
+            $(obj).closest("tr").remove();
+        }
+        var initValidator = function(selector){
+            $(selector).validatebox({
+                required:true
+            });
+        }
+
+        function movebtonclick_true() {
+            $("#movestorage_bt").linkbutton({disabled:true});
+            $("#review_id").linkbutton({disabled:true});
+            $("#check_id").linkbutton({disabled:true});
+        }
+
+        function movebtonclick_false(){
+            $("#movestorage_bt").linkbutton({disabled:false});
+            $("#review_id").linkbutton({disabled:false});
+            $("#check_id").linkbutton({disabled:false});
+        }
+
+    </script>
+
+    <script src="${CONTEXT_PATH}/static/app/stock-ctrls/movestorage-ctrls.js" type="text/javascript"></script>
+    <%}; include("../layout/_layout.html",{head:head,body:body,js:js,ctrls:ctrls}){}%>

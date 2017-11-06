@@ -1,0 +1,40 @@
+<% var head ={ %>
+<title>库存查询</title>
+<% }; var ctrls= "ng-controller='ProductStockCtrls'" ; var body={ %>
+
+
+<div class="easyui-layout" data-options="fit : true,border : false">
+    <div data-options="region:'center',border:false">
+        <table id="dg"></table>
+    </div>
+</div>
+<div id="toolbar" style="display: none;">
+    <input type="hidden" name="status" value="1">
+    <div>
+        <form id="searchForm">
+            仓库名称:<input name="warnning_category_name" style="width:110px" class="easyui-textbox" placeholder="可以模糊查询登录名" />
+            产品名称:<input name="warnning_stock_name" style="width:110px" class="easyui-textbox" placeholder="可以模糊查询登录名" />
+            所属分类:
+            <select class="easyui-combotree" style="width:200px" name="yzwstock_product.category_id-i" editable="false"
+                    data-options="url :'${CONTEXT_PATH}/stock/category/tree',
+			              parentField : 'pid',
+			              lines : true">
+            </select>
+            <a  href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" ng-click="searchFun();">搜索</a>
+            <a  href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_delete',plain:true" ng-click="cleanFun();">清空</a>
+        </form>
+    </div>
+</div>
+
+<%}; var js={%>
+<script type="text/javascript">
+    var formatterFun = function(value, row, index) {
+        var str = '';
+
+        return str + '';
+    }
+</script>
+
+<script src="${CONTEXT_PATH}/static/app/stock-ctrls/replenish-stock-warning-ctrls.js" type="text/javascript"></script>
+<%}; include("../layout/_layout.html",{head:head,body:body,js:js,ctrls:ctrls}){}%>
+

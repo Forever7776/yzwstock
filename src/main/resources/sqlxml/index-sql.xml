@@ -1,0 +1,11 @@
+<sqlGroup name="index.msg">
+	<sql id="list">SELECT index_msg.msg,index_msg.uid, DATE_FORMAT(index_msg.date,"%m-%d %h:%i:%s")as date , system_user.name,system_user.icon  FROM `index_msg` JOIN  system_user  on system_user.id = index_msg.uid</sql>
+</sqlGroup>
+
+
+
+
+
+
+
+

@@ -1,0 +1,6 @@
+
+<sqlGroup name="system.res">
+    <sql id="getUrls">select url from system_res where url is not null and pid !=0</sql>
+    <sql id="getResUrl"> SELECT res.url FROM system_res AS res inner JOIN system_role_res role_res ON role_res.res_id = res.id INNER JOIN system_role AS role ON role.id = role_res.role_id where role.name=? and res.url is not null and res.pid != 0</sql>
+    <sql id="getRes"> SELECT res.* FROM system_res AS res inner JOIN system_role_res role_res ON role_res.res_id = res.id INNER JOIN system_role AS role ON role.id = role_res.role_id where role.id=?</sql>
+</sqlGroup>

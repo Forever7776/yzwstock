@@ -1,0 +1,98 @@
+2016-10-28 10:56:14[INFO]-[Thread: main]-[org.apache.shiro.web.env.EnvironmentLoader.initEnvironment()]: Starting Shiro environment initialization.
+2016-10-28 10:56:14[INFO]-[Thread: main]-[org.apache.shiro.cache.ehcache.EhCacheManager.getCache()]: Using existing EHCache named [myRealm.authorizationCache]
+2016-10-28 10:56:15[INFO]-[Thread: main]-[org.apache.shiro.config.IniSecurityManagerFactory.isAutoApplyRealms()]: Realms have been explicitly set on the SecurityManager instance - auto-setting of realms will not occur.
+2016-10-28 10:56:15[INFO]-[Thread: main]-[org.apache.shiro.web.env.EnvironmentLoader.initEnvironment()]: Shiro environment initialized in 421 ms.
+2016-10-28 10:56:15[INFO]-[Thread: main]-[com.jfinal.ext.plugin.config.ConfigKit.init()]: config init success!
+2016-10-28 10:56:15[INFO]-[Thread: main]-[com.yzw.base.config.ProjectConfig.configPlugin()]: [init]druid 连接池启动#SUCCESS
+2016-10-28 10:56:15[INFO]-[Thread: main]-[com.yzw.base.config.ProjectConfig.configPlugin()]: [init]AutoTableBindPlugin 表加载启动#SUCCESS
+2016-10-28 10:56:15[INFO]-[Thread: main]-[com.yzw.base.config.ProjectConfig.configPlugin()]: [init]ShiroPlugin 权限插件加载#SUCCESS
+2016-10-28 10:56:16[INFO]-[Thread: main]-[com.alibaba.druid.pool.DruidDataSource.init()]: {dataSource-1} inited
+2016-10-28 10:56:16[WARN]-[Thread: main]-[net.sf.ehcache.DiskStorePathManager.resolveAndLockIfNeeded()]: diskStorePath 'C:\Users\kz\AppData\Local\Temp' is already used by an existing CacheManager either in the same VM or in a different process.
+The diskStore path for this CacheManager will be set to C:\Users\kz\AppData\Local\Temp\ehcache_auto_created7011935598012296229diskstore.
+To avoid this warning consider using the CacheManager factory methods to create a singleton CacheManager or specifying a separate ehcache configuration (ehcache.xml) for each CacheManager instance.
+2016-10-28 10:56:17[INFO]-[Thread: main]-[org.quartz.impl.StdSchedulerFactory.instantiate()]: Using default implementation for ThreadExecutor
+2016-10-28 10:56:17[INFO]-[Thread: main]-[org.quartz.simpl.SimpleThreadPool.initialize()]: Job execution threads will use class loader of thread: main
+2016-10-28 10:56:17[INFO]-[Thread: main]-[org.quartz.core.SchedulerSignalerImpl.<init>()]: Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2016-10-28 10:56:17[INFO]-[Thread: main]-[org.quartz.core.QuartzScheduler.<init>()]: Quartz Scheduler v.2.2.2 created.
+2016-10-28 10:56:17[INFO]-[Thread: main]-[org.quartz.simpl.RAMJobStore.initialize()]: RAMJobStore initialized.
+2016-10-28 10:56:17[INFO]-[Thread: main]-[org.quartz.core.QuartzScheduler.initialize()]: Scheduler meta-data: Quartz Scheduler (v2.2.2) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2016-10-28 10:56:17[INFO]-[Thread: main]-[org.quartz.impl.StdSchedulerFactory.instantiate()]: Quartz scheduler 'DefaultQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+2016-10-28 10:56:17[INFO]-[Thread: main]-[org.quartz.impl.StdSchedulerFactory.instantiate()]: Quartz scheduler version: 2.2.2
+2016-10-28 10:56:17[INFO]-[Thread: main]-[org.quartz.core.QuartzScheduler.start()]: Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started.
+2016-10-28 10:56:26[INFO]-[Thread: qtp299295663-46]-[org.apache.shiro.session.mgt.AbstractValidatingSessionManager.enableSessionValidation()]: Enabling session validation scheduler...
+2016-10-28 10:56:26[INFO]-[Thread: qtp299295663-46]-[org.apache.shiro.cache.ehcache.EhCacheManager.getCache()]: Using existing EHCache named [shiro-activeSessionCache]
+2016-10-28 10:56:26[INFO]-[Thread: qtp299295663-45]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql: select url from system_res where url is not null and pid !=0
+2016-10-28 10:56:26[INFO]-[Thread: qtp299295663-45]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql: insert into `system_log`(`operation`, `date`, `ip`) values(?, ?, ?)
+2016-10-28 10:56:36[INFO]-[Thread: qtp299295663-44]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_user  where name =? 
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-44]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_user  where name =? 
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-44]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql: insert into `system_log`(`uid`, `operation`, `aid`, `from`, `date`, `ip`) values(?, ?, ?, ?, ?, ?)
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_res  where  pid is null and type =?  order by seq
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_res  where  pid =? and type =?  order by seq
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_user  where name =? 
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql: select role.name from system_user as u join system_user_role as user_role on u.id = user_role.user_id  join system_role as role on role.id= user_role.role_id   where u.name=?
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  SELECT res.url FROM system_res AS res inner JOIN system_role_res role_res ON role_res.res_id = res.id INNER JOIN system_role AS role ON role.id = role_res.role_id where role.name=? and res.url is not null and res.pid != 0
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_res  where  pid =? and type =?  order by seq
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_res  where  pid =? and type =?  order by seq
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_res  where  pid =? and type =?  order by seq
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_res  where  pid =? and type =?  order by seq
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_res  where  pid =? and type =?  order by seq
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_res  where  pid =? and type =?  order by seq
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_res  where  pid =? and type =?  order by seq
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_res  where  pid =? and type =?  order by seq
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_res  where  pid =? and type =?  order by seq
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_res  where  pid =? and type =?  order by seq
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_res  where  pid =? and type =?  order by seq
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_res  where  pid =? and type =?  order by seq
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_res  where  pid =? and type =?  order by seq
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_res  where  pid =? and type =?  order by seq
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_res  where  pid =? and type =?  order by seq
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_res  where  pid =? and type =?  order by seq
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_res  where  pid =? and type =?  order by seq
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_res  where  pid =? and type =?  order by seq
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_res  where  pid =? and type =?  order by seq
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_res  where  pid =? and type =?  order by seq
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_res  where  pid =? and type =?  order by seq
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from system_res  where  pid =? and type =?  order by seq
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-44]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql: select role.name from system_user as u join system_user_role as user_role on u.id = user_role.user_id  join system_role as role on role.id= user_role.role_id   where u.name=?
+2016-10-28 10:56:37[INFO]-[Thread: qtp299295663-44]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql: SELECT t1.* ,sw.warning_first,sw.warning_secend,sw.worning_third FROM (SELECT st. NAME AS stockName,pr. NAME AS productName,pr.spec AS spec,sp.stock_id,sp.product_id,count(sp.product_id) AS stockSum  FROM yzwstock_stock_product sp  LEFT JOIN yzwstock_stock st ON sp.stock_id = st.id  LEFT JOIN yzwstock_product pr ON pr.id = sp.product_id  LEFT JOIN yzwstock_product_stock_worning sw ON sw.stockid = sp.stock_id where sp.status = ? and sp.aid =34 GROUP BY product_id,stock_id order by stock_id)t1 LEFT JOIN yzwstock_product_stock_worning sw on t1.product_id=sw.productid where 1=1 and (stockSum < warning_first or stockSum < warning_secend or stockSum < worning_third)
+2016-10-28 10:56:39[INFO]-[Thread: qtp299295663-46]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql: select yzwstock_product.*,yzwstock_product_category.name as category_name from yzwstock_product left join yzwstock_product_category on yzwstock_product.category_id=yzwstock_product_category.id  where yzwstock_product.aid='34'
+2016-10-28 10:56:39[INFO]-[Thread: qtp299295663-52]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql: select role.name from system_user as u join system_user_role as user_role on u.id = user_role.user_id  join system_role as role on role.id= user_role.role_id   where u.name=?
+2016-10-28 10:56:39[INFO]-[Thread: qtp299295663-52]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql: select yzwstock_in_storage.*,yzwstock_supplier.name as supplier_name from yzwstock_in_storage left join yzwstock_supplier on yzwstock_supplier.id =yzwstock_in_storage.supplier_id where 1=1  and yzwstock_in_storage.aid=34  order by insert_date desc limit 0,10
+2016-10-28 10:56:39[INFO]-[Thread: qtp299295663-52]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select count(*) as c from  yzwstock_in_storage left join yzwstock_supplier on yzwstock_supplier.id =yzwstock_in_storage.supplier_id where 1=1  and yzwstock_in_storage.aid=34  
+2016-10-28 10:56:39[INFO]-[Thread: qtp299295663-52]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from yzwstock_supplier where aid=? 
+2016-10-28 10:56:39[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from yzwstock_supplier where aid=? 
+2016-10-28 10:56:39[INFO]-[Thread: qtp299295663-43]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql: select role.name from system_user as u join system_user_role as user_role on u.id = user_role.user_id  join system_role as role on role.id= user_role.role_id   where u.name=?
+2016-10-28 10:56:39[INFO]-[Thread: qtp299295663-43]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from yzwstock_stock  where aid=? and  pid is null and status = 1 order by insert_date desc
+2016-10-28 10:56:39[INFO]-[Thread: qtp299295663-43]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from yzwstock_stock  where aid=? and pid = ? and status = 1  order by insert_date desc
+2016-10-28 10:56:39[INFO]-[Thread: qtp299295663-43]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from yzwstock_stock  where aid=? and pid = ? and status = 1  order by insert_date desc
+2016-10-28 10:56:39[INFO]-[Thread: qtp299295663-43]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from yzwstock_stock  where aid=? and pid = ? and status = 1  order by insert_date desc
+2016-10-28 10:56:39[INFO]-[Thread: qtp299295663-43]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from yzwstock_stock  where aid=? and pid = ? and status = 1  order by insert_date desc
+2016-10-28 10:56:40[INFO]-[Thread: qtp299295663-52]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql: select role.name from system_user as u join system_user_role as user_role on u.id = user_role.user_id  join system_role as role on role.id= user_role.role_id   where u.name=?
+2016-10-28 10:56:40[INFO]-[Thread: qtp299295663-52]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from yzwstock_stock  where aid=? and  pid is null and status = 1 order by insert_date desc
+2016-10-28 10:56:40[INFO]-[Thread: qtp299295663-52]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from yzwstock_stock  where aid=? and pid = ? and status = 1  order by insert_date desc
+2016-10-28 10:56:40[INFO]-[Thread: qtp299295663-52]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from yzwstock_stock  where aid=? and pid = ? and status = 1  order by insert_date desc
+2016-10-28 10:56:40[INFO]-[Thread: qtp299295663-52]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from yzwstock_stock  where aid=? and pid = ? and status = 1  order by insert_date desc
+2016-10-28 10:56:40[INFO]-[Thread: qtp299295663-52]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from yzwstock_stock  where aid=? and pid = ? and status = 1  order by insert_date desc
+2016-10-28 10:56:40[INFO]-[Thread: qtp299295663-46]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql: select role.name from system_user as u join system_user_role as user_role on u.id = user_role.user_id  join system_role as role on role.id= user_role.role_id   where u.name=?
+2016-10-28 10:56:40[INFO]-[Thread: qtp299295663-46]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql: SELECT *    FROM(SELECT a.*,yzwstock_customer.name as customer_name  FROM yzwstock_out_storage a left join yzwstock_out_storage_detail b ON  a.id=b.outstorage_id   LEFT JOIN yzwstock_stock d on d.id=b.stock_id left join yzwstock_customer on yzwstock_customer.id = a.customer_id where a.aid = 34  GROUP BY a.id) t1 where 1=1  order by t1.insert_date desc limit 0,10
+2016-10-28 10:56:40[INFO]-[Thread: qtp299295663-46]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql: select count(*)  FROM(SELECT a.*,yzwstock_customer.name as customer_name FROM yzwstock_out_storage a left join yzwstock_out_storage_detail b ON a.id=b.outstorage_id LEFT JOIN yzwstock_stock d on d.id=b.stock_id left join yzwstock_customer on yzwstock_customer.id = a.customer_id where a.aid = 34 GROUP BY a.id) t1 where 1=1 
+2016-10-28 10:56:40[INFO]-[Thread: qtp299295663-45]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from yzwstock_customer where aid=? 
+2016-10-28 10:56:54[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql: select role.name from system_user as u join system_user_role as user_role on u.id = user_role.user_id  join system_role as role on role.id= user_role.role_id   where u.name=?
+2016-10-28 10:56:54[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from yzwstock_stock  where aid=? and  pid is null and status = 1 order by insert_date desc
+2016-10-28 10:56:54[INFO]-[Thread: qtp299295663-43]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql: select role.name from system_user as u join system_user_role as user_role on u.id = user_role.user_id  join system_role as role on role.id= user_role.role_id   where u.name=?
+2016-10-28 10:56:54[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from yzwstock_stock  where aid=? and pid = ? and status = 1  order by insert_date desc
+2016-10-28 10:56:54[INFO]-[Thread: qtp299295663-43]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql: SELECT *    FROM(SELECT a.*,yzwstock_customer.name as customer_name  FROM yzwstock_out_storage a left join yzwstock_out_storage_detail b ON  a.id=b.outstorage_id   LEFT JOIN yzwstock_stock d on d.id=b.stock_id left join yzwstock_customer on yzwstock_customer.id = a.customer_id where a.aid = 34  GROUP BY a.id) t1 where 1=1  order by t1.insert_date desc limit 0,10
+2016-10-28 10:56:54[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from yzwstock_stock  where aid=? and pid = ? and status = 1  order by insert_date desc
+2016-10-28 10:56:54[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from yzwstock_stock  where aid=? and pid = ? and status = 1  order by insert_date desc
+2016-10-28 10:56:54[INFO]-[Thread: qtp299295663-50]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from yzwstock_stock  where aid=? and pid = ? and status = 1  order by insert_date desc
+2016-10-28 10:56:54[INFO]-[Thread: qtp299295663-43]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql: select count(*)  FROM(SELECT a.*,yzwstock_customer.name as customer_name FROM yzwstock_out_storage a left join yzwstock_out_storage_detail b ON a.id=b.outstorage_id LEFT JOIN yzwstock_stock d on d.id=b.stock_id left join yzwstock_customer on yzwstock_customer.id = a.customer_id where a.aid = 34 GROUP BY a.id) t1 where 1=1 
+2016-10-28 10:56:54[INFO]-[Thread: qtp299295663-44]-[com.jfinal.plugin.activerecord.SqlReporter.invoke()]: Sql:  select * from yzwstock_customer where aid=? 
+2016-10-28 10:58:00[INFO]-[Thread: DefaultQuartzScheduler_Worker-1]-[com.yzw.commons.job.RefreshJob.execute()]: token刷新处理中……
+2016-10-28 10:58:00[WARN]-[Thread: DefaultQuartzScheduler_Worker-1]-[com.jfinal.plugin.ehcache.CacheKit.getOrAddCache()]: Could not find cache config [pf_api_data], using default.
